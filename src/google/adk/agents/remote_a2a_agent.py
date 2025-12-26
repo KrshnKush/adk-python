@@ -529,7 +529,10 @@ class RemoteA2aAgent(BaseAgent):
           message_id=str(uuid.uuid4()),
           parts=message_parts,
           role="user",
-          context_id=context_id,
+          # Use existing context_id if available (for conversation continuity),
+          # otherwise use the local session ID to maintain session identity
+          # across local and remote agents.
+          context_id=context_id if context_id else ctx.session.id,
       )
 
     logger.debug(build_a2a_request_log(a2a_request))
