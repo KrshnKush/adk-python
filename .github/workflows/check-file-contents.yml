@@ -96,7 +96,7 @@ jobs:
             echo ""
 
             set +e
-            FILES_WITH_FORBIDDEN_IMPORT=$(grep -lE '^from.*cli.*import.*$' $CHANGED_FILES)
+            FILES_WITH_FORBIDDEN_IMPORT=$(grep -lE '^from\s+([^ ]*\.)?cli(\s|\.)' $CHANGED_FILES)
             GREP_EXIT_CODE=$?
             set -e
 
