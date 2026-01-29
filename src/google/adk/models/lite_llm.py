@@ -490,7 +490,7 @@ def _append_fallback_user_content_if_missing(
         content.parts = []
       content.parts.append(
           types.Part.from_text(
-              text="Handle the requests as specified in the System Instruction."
+              text="Handle the incoming request according to the provided requirements."
           )
       )
       return
@@ -500,8 +500,7 @@ def _append_fallback_user_content_if_missing(
           parts=[
               types.Part.from_text(
                   text=(
-                      "Handle the requests as specified in the System"
-                      " Instruction."
+                      "Handle the incoming request according to the provided requirements."
                   )
               ),
           ],
