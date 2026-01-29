@@ -98,6 +98,9 @@ _JSON_DECODER = json.JSONDecoder()
 # 1. FinishReason.TOOL_CALL enum does not exist (as of google-genai 0.8.0)
 # 2. Tool calls represent normal completion (model stopped to invoke tools)
 # 3. Gemini native responses use STOP for tool calls (see lite_llm.py:910)
+# 4. Mapping tool-related finish reasons to STOP preserves backward
+#    compatibility with existing ADK consumers that assume STOP
+#    indicates a successful, non-error completion.
 _FINISH_REASON_MAPPING = {
     "length": types.FinishReason.MAX_TOKENS,
     "stop": types.FinishReason.STOP,
