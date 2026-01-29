@@ -979,14 +979,14 @@ async def test_generate_content_async_adds_fallback_user_message(
   ]
   assert any(
       message.get("content")
-      == "Handle the requests as specified in the System Instruction."
+      == "Handle the incoming request according to the provided requirements."
       for message in user_messages
   )
   assert (
       sum(1 for content in llm_request.contents if content.role == "user") == 1
   )
   assert llm_request.contents[-1].parts[0].text == (
-      "Handle the requests as specified in the System Instruction."
+      "Handle the incoming request according to the provided requirements."
   )
 
 
