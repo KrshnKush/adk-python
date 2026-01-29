@@ -25,6 +25,7 @@ from unittest.mock import Mock
 import warnings
 
 from google.adk.models.lite_llm import _content_to_message_param
+from google.adk.models.lite_llm import _FALLBACK_USER_CONTENT_TEXT
 from google.adk.models.lite_llm import _FILE_ID_REQUIRED_PROVIDERS
 from google.adk.models.lite_llm import _FINISH_REASON_MAPPING
 from google.adk.models.lite_llm import _function_declaration_to_tool_param
@@ -978,16 +979,13 @@ async def test_generate_content_async_adds_fallback_user_message(
       message for message in kwargs["messages"] if message["role"] == "user"
   ]
   assert any(
-      message.get("content")
-      == "Handle the incoming request according to the provided requirements."
+      message.get("content") == _FALLBACK_USER_CONTENT_TEXT
       for message in user_messages
   )
   assert (
       sum(1 for content in llm_request.contents if content.role == "user") == 1
   )
-  assert llm_request.contents[-1].parts[0].text == (
-      "Handle the incoming request according to the provided requirements."
-  )
+  assert llm_request.contents[-1].parts[0].text == _FALLBACK_USER_CONTENT_TEXT
 
 
 litellm_append_user_content_test_cases = [
