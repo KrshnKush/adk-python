@@ -134,6 +134,10 @@ _MISSING_TOOL_RESULT_MESSAGE = (
     "before a response was recorded)."
 )
 
+_FALLBACK_USER_CONTENT_TEXT = (
+    "Handle the incoming request according to the provided requirements."
+)
+
 _LITELLM_IMPORTED = False
 _LITELLM_GLOBAL_SYMBOLS = (
     "ChatCompletionAssistantMessage",
@@ -492,21 +496,13 @@ def _append_fallback_user_content_if_missing(
       if not parts:
         content.parts = []
       content.parts.append(
-          types.Part.from_text(
-              text="Handle the incoming request according to the provided requirements."
-          )
+          types.Part.from_text(text=_FALLBACK_USER_CONTENT_TEXT)
       )
       return
   llm_request.contents.append(
       types.Content(
           role="user",
-          parts=[
-              types.Part.from_text(
-                  text=(
-                      "Handle the incoming request according to the provided requirements."
-                  )
-              ),
-          ],
+          parts=[types.Part.from_text(text=_FALLBACK_USER_CONTENT_TEXT)],
       )
   )
 
