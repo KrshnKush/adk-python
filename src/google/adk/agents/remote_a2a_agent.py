@@ -555,7 +555,7 @@ class RemoteA2aAgent(BaseAgent):
           # Use existing context_id if available (for conversation continuity),
           # otherwise use the local session ID to maintain session identity
           # across local and remote agents.
-          context_id=context_id if context_id else ctx.session.id,
+          context_id=context_id or ctx.session.id,
       )
 
     logger.debug(build_a2a_request_log(a2a_request))
